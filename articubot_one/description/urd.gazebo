@@ -1,0 +1,80 @@
+<?xml version="1.0" ?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="gazebo_config">
+
+  <xacro:property name="body_color" value="Gazebo/Silver" />
+
+  <!-- Load ros_control plugin -->
+  <gazebo>
+    <plugin name="gazebo_ros2_control" filename="libgazebo_ros2_control.so"/>
+  </gazebo>
+
+  <!-- base -->
+  <gazebo reference="base_link">
+    <material>${body_color}</material>
+    <self_collide>true</self_collide>
+    <gravity>true</gravity>
+  </gazebo>
+
+  <!-- base parts -->
+  <gazebo reference="bottom_layer">
+    <material>${body_color}</material>
+    <self_collide>true</self_collide>
+  </gazebo>
+
+  <gazebo reference="upper_layer">
+    <material>${body_color}</material>
+    <self_collide>true</self_collide>
+  </gazebo>
+
+  <gazebo reference="battery">
+    <material>Gazebo/Yellow</material>
+    <self_collide>true</self_collide>
+  </gazebo>
+
+  <!-- Rods -->
+  <gazebo reference="rod_fl">
+    <material>${body_color}</material>
+    <self_collide>true</self_collide>
+  </gazebo>
+  <gazebo reference="rod_fr">
+    <material>${body_color}</material>
+    <self_collide>true</self_collide>
+  </gazebo>
+  <gazebo reference="rod_rl">
+    <material>${body_color}</material>
+    <self_collide>true</self_collide>
+  </gazebo>
+  <gazebo reference="rod_rr">
+    <material>${body_color}</material>
+    <self_collide>true</self_collide>
+  </gazebo>
+
+  <!-- Wheels with surface friction -->
+  <xacro:macro name="wheel_friction_block" params="wheel_name">
+    <gazebo reference="${wheel_name}">
+      <surface>
+        <friction>
+          <ode>
+            <mu>2.0</mu>
+            <mu2>2.0</mu2>
+          </ode>
+        </friction>
+        <contact>
+          <ode>
+            <kp>1000000.0</kp>
+            <kd>10.0</kd>
+          </ode>
+        </contact>
+      </surface>
+      <material>Gazebo/Black</material>
+      <self_collide>true</self_collide>
+    </gazebo>
+  </xacro:macro>
+
+  <xacro:wheel_friction_block wheel_name="front_left_wheel"/>
+  <xacro:wheel_friction_block wheel_name="front_right_wheel"/>
+  <xacro:wheel_friction_block wheel_name="rear_left_wheel"/>
+  <xacro:wheel_friction_block wheel_name="rear_right_wheel"/>
+
+</robot>
+

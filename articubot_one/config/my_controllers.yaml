@@ -1,0 +1,52 @@
+controller_manager:
+  ros__parameters:
+    update_rate: 30  # Controller update rate (Hz)
+
+    # Joint state broadcaster to publish joint states
+    joint_broad:
+      type: joint_state_broadcaster/JointStateBroadcaster
+
+    # Differential drive controller
+    diff_cont:
+      type: diff_drive_controller/DiffDriveController
+
+diff_cont:
+  ros__parameters:
+    publish_rate: 50.0
+    publish_odom: true
+    odom_frame_id: odom
+    base_frame_id: base_link
+    odom_topic: /odom
+
+    left_wheel_names: ["front_left_wheel_joint", "rear_left_wheel_joint"]
+    right_wheel_names: ["front_right_wheel_joint", "rear_right_wheel_joint"]
+
+    wheel_separation: 0.20  # meters
+    wheel_radius: 0.04      # meters
+
+    use_stamped_vel: false
+
+    open_loop: true  # true because no encoder feedback in simulation
+
+    # Explicitly specify interfaces
+    command_interfaces:
+      - velocity
+    state_interfaces:
+      - position
+      - velocity
+
+    # Velocity and acceleration limits (optional)
+    linear:
+      x:
+        max_velocity: 0.5
+        min_velocity: -0.5
+        max_acceleration: 1.0
+        min_acceleration: -1.0
+
+    angular:
+      z:
+        max_velocity: 1.0
+        min_velocity: -1.0
+        max_acceleration: 2.0
+        min_acceleration: -2.0
+

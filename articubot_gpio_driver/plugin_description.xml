@@ -1,0 +1,7 @@
+<library path="libarticubot_gpio">
+  <class name="articubot_gpio/ArticubotGPIOHardware"
+         type="articubot_gpio::ArticubotGPIOHardware"
+         base_class_type="hardware_interface::SystemInterface">
+    <description>Articubot GPIO Hardware Interface</description>
+  </class>
+</library>
